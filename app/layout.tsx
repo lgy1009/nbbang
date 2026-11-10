@@ -1,11 +1,11 @@
 import type { Metadata, Viewport } from "next";
-import { Gaegu, Gowun_Dodum } from "next/font/google";
+import { Gowun_Dodum, Jua } from "next/font/google";
 import "./globals.css";
 
 // 글꼴은 빌드할 때 사이트 안에 포함된다 (사용 중 외부로 요청하지 않음)
-const gaegu = Gaegu({
-  variable: "--font-gaegu",
-  weight: ["400", "700"],
+const jua = Jua({
+  variable: "--font-jua",
+  weight: "400",
   subsets: ["latin"],
   preload: false,
 });
@@ -30,7 +30,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="ko" className={`${gaegu.variable} ${gowun.variable} h-full antialiased`}>
+    <html lang="ko" className={`${jua.variable} ${gowun.variable} h-full antialiased`}>
       <body className="min-h-full">{children}</body>
     </html>
   );
