@@ -23,7 +23,7 @@ PRD의 "개발 단위"를 작업 단위로 쪼갠 목록이다. 한 번에 한 �
 | 6 | 여행 목록·사람·지출 화면 | app/components/* | 화면에서 추가·수정·삭제 | 완료 |
 | 7 | 정산 화면 + 복사 | app/components/SettleView.tsx | 복사한 글이 붙여 넣어진다 | 완료 |
 | 8 | 보안 점검 | - | DESIGN 점검표 통과 | 완료 |
-| 9 | 배포 | scripts/deploy.sh | 배포 주소에서 계산·복사·저장 동작 | |
+| 9 | 배포 | scripts/deploy.sh | 배포 주소에서 계산·복사·저장 동작 | 완료 (https://nbbang-tau.vercel.app) |
 
 ## 위험과 대비
 | 위험 | 대비 |
