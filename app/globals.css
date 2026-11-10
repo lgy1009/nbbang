@@ -1,0 +1,75 @@
+@import "tailwindcss";
+
+/* 다이어리·레트로 스티커 느낌의 색 */
+@theme {
+  --color-paper: #fbf6ec;
+  --color-paper-dark: #f3ead6;
+  --color-ink: #3b3a36;
+  --color-ink-soft: #6f6b62;
+  --color-coral: #f4a6a0;
+  --color-coral-dark: #c4544b;
+  --color-mint: #b5dcc5;
+  --color-mint-dark: #2f7a4f;
+  --color-butter: #ffe38f;
+  --color-sky: #b9d4ee;
+  --color-lilac: #d8c8ee;
+}
+
+@theme inline {
+  --font-hand: var(--font-gaegu), "Comic Sans MS", cursive;
+  --font-body: var(--font-gowun), "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+}
+
+body {
+  background-color: var(--color-paper);
+  /* 모눈 종이 */
+  background-image:
+    linear-gradient(rgba(59, 58, 54, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(59, 58, 54, 0.06) 1px, transparent 1px);
+  background-size: 22px 22px;
+  color: var(--color-ink);
+  font-family: var(--font-body);
+}
+
+@layer components {
+  /* 스티커 카드 */
+  .card {
+    @apply rounded-2xl border-2 border-ink bg-white p-4 shadow-[3px_3px_0_var(--color-ink)];
+  }
+  /* 눌리는 버튼 */
+  .btn {
+    @apply inline-flex min-h-11 cursor-pointer items-center justify-center gap-1 rounded-xl border-2 border-ink px-4 font-hand text-xl font-bold shadow-[2px_2px_0_var(--color-ink)] transition-transform select-none;
+  }
+  .btn:active:not(:disabled) {
+    @apply translate-x-[2px] translate-y-[2px] shadow-none;
+  }
+  .btn:disabled {
+    @apply cursor-not-allowed opacity-40;
+  }
+  .btn:focus-visible,
+  .field:focus-visible,
+  .chip:focus-visible {
+    @apply outline-2 outline-offset-2 outline-coral-dark;
+  }
+  .field {
+    @apply min-h-11 w-full min-w-0 rounded-xl border-2 border-ink bg-paper px-3 text-base;
+  }
+  .chip {
+    @apply min-h-10 cursor-pointer rounded-full border-2 border-ink px-3 text-base;
+  }
+  /* 마스킹테이프 제목 */
+  .tape {
+    @apply relative inline-block -rotate-1 px-3 py-0.5 font-hand text-2xl font-bold;
+    background: repeating-linear-gradient(
+      -45deg,
+      color-mix(in srgb, var(--tape, var(--color-butter)) 80%, white),
+      color-mix(in srgb, var(--tape, var(--color-butter)) 80%, white) 6px,
+      var(--tape, var(--color-butter)) 6px,
+      var(--tape, var(--color-butter)) 12px
+    );
+    clip-path: polygon(2% 0, 98% 4%, 100% 50%, 97% 100%, 3% 96%, 0 50%);
+  }
+  .money {
+    font-variant-numeric: tabular-nums;
+  }
+}
