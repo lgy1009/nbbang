@@ -4,7 +4,7 @@ import { useState } from "react";
 import { formatMoney } from "@/lib/money";
 import { settleTrip } from "@/lib/settle";
 import { LIMITS, type Trip } from "@/lib/types";
-import NameChipsInput from "./NameChipsInput";
+import NameChipsInput, { mergeNames } from "./NameChipsInput";
 import { tapeStyle } from "./ui";
 
 const TAPES = ["var(--color-butter)", "var(--color-mint)", "var(--color-sky)", "var(--color-coral)", "var(--color-lilac)"];
@@ -25,12 +25,18 @@ export default function TripList({
   const [members, setMembers] = useState<string[]>([]);
   const [error, setError] = useState("");
 
-  function submit(e: React.FormEvent) {
+  function submit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const n = name.trim();
     if (!n) return setError("여행 이름을 적어 주세요.");
-    if (members.length < 2) return setError("함께 간 사람을 2명 이상 적어 주세요. (나 포함)");
-    onCreate(n, members);
+    // "추가"를 안 누르고 입력칸에 남겨 둔 이름도 함께 넣는다
+    const pending = new FormData(e.currentTarget).get("pendingNames");
+    const all = mergeNames(members, typeof pending === "string" ? pending : "").names;
+    if (all.length < 2) {
+      setMembers(all);
+      return setError("함께 간 사람을 2명 이상 적어 주세요. (나 포함)");
+    }
+    onCreate(n, all);
   }
 
   return (

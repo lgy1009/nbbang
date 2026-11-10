@@ -42,11 +42,13 @@ export default function SettleTab({
   const [rateText, setRateText] = useState(trip.krwPerEur ? String(trip.krwPerEur) : "");
   const [copied, setCopied] = useState<"" | "ok" | "fail">("");
   const [showText, setShowText] = useState(false);
+  // 입력 중(예: "14")에는 경고하지 않고, 칸을 벗어난 뒤에만 경고한다
+  const [rateTouched, setRateTouched] = useState(false);
 
   const result = settleTrip(trip);
   const name = (id: string) => trip.members.find((m) => m.id === id)?.name ?? "?";
   const mixed = trip.expenses.some((e) => e.currency !== trip.settleCurrency);
-  const rateInvalid = rateText.trim() !== "" && parseRate(rateText) === null;
+  const rateInvalid = rateTouched && rateText.trim() !== "" && parseRate(rateText) === null;
 
   function setRate(text: string) {
     setRateText(text);
@@ -100,7 +102,11 @@ export default function SettleTab({
             maxLength={9}
             placeholder={mixed ? "꼭 넣어 주세요" : "선택"}
             aria-invalid={rateInvalid}
-            onChange={(e) => setRate(e.target.value)}
+            onChange={(e) => {
+              setRateTouched(false);
+              setRate(e.target.value);
+            }}
+            onBlur={() => setRateTouched(true)}
           />
           <span className="shrink-0 text-sm font-bold">KRW</span>
         </label>

@@ -3,6 +3,26 @@
 import { useState } from "react";
 import { LIMITS } from "@/lib/types";
 
+/** "가영, 민지" 같은 글자를 이름 목록에 더한다 (중복·인원 초과는 빼고 안내) */
+export function mergeNames(names: string[], text: string): { names: string[]; msg: string } {
+  const next = [...names];
+  let msg = "";
+  for (const p of text.split(/[,，\n]/)) {
+    const n = p.trim().slice(0, LIMITS.memberName);
+    if (!n) continue;
+    if (next.includes(n)) {
+      msg = `"${n}"은(는) 이미 있어요.`;
+      continue;
+    }
+    if (next.length >= LIMITS.maxMembers) {
+      msg = `최대 ${LIMITS.maxMembers}명까지예요.`;
+      break;
+    }
+    next.push(n);
+  }
+  return { names: next, msg };
+}
+
 /** 이름을 하나씩 적어 칩으로 쌓는 입력칸 (새 여행 만들기용) */
 export default function NameChipsInput({
   names,
@@ -15,25 +35,10 @@ export default function NameChipsInput({
   const [msg, setMsg] = useState("");
 
   function add() {
-    const parts = text
-      .split(/[,，\n]/)
-      .map((s) => s.trim())
-      .filter(Boolean);
-    if (parts.length === 0) return;
-    const next = [...names];
-    for (const p of parts) {
-      const n = p.slice(0, LIMITS.memberName);
-      if (next.includes(n)) {
-        setMsg(`"${n}"은(는) 이미 있어요.`);
-        continue;
-      }
-      if (next.length >= LIMITS.maxMembers) {
-        setMsg(`최대 ${LIMITS.maxMembers}명까지예요.`);
-        break;
-      }
-      next.push(n);
-    }
-    onChange(next);
+    if (!text.trim()) return;
+    const r = mergeNames(names, text);
+    onChange(r.names);
+    setMsg(r.msg);
     setText("");
   }
 
@@ -62,8 +67,8 @@ export default function NameChipsInput({
           maxLength={LIMITS.memberName * 4}
           placeholder="이름 (쉼표로 여러 명)"
           aria-label="사람 이름"
+          name="pendingNames"
           enterKeyHint="done"
-          onBlur={add}
           onChange={(e) => {
             setText(e.target.value);
             setMsg("");
