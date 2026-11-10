@@ -39,8 +39,7 @@ export default function TripList({
   return (
     <div className="space-y-6">
       <header className="text-center">
-        <p className="font-hand text-lg text-ink-soft">우리 여행 정산 다이어리</p>
-        <h1 className="mt-1 font-hand text-5xl">
+        <h1 className="font-hand text-5xl">
           N빵 <span className="text-coral-dark">계산기</span>
         </h1>
         <p className="mt-2 text-sm text-ink-soft">누가 누구에게 얼마 보내면 끝나는지, 송금 횟수는 가장 적게!</p>
