@@ -73,16 +73,16 @@ export default function MembersTab({
                     if (e.key === "Enter" && !e.nativeEvent.isComposing) rename(m.id);
                   }}
                 />
-                <button type="button" className="btn shrink-0 bg-mint px-3 text-lg" onClick={() => rename(m.id)}>
+                <button type="button" className="btn shrink-0 bg-coral px-3" onClick={() => rename(m.id)}>
                   저장
                 </button>
               </>
             ) : (
               <>
-                <span className="flex-1 truncate text-lg">🙂 {m.name}</span>
+                <span className="flex-1 truncate text-lg">{m.name}</span>
                 <button
                   type="button"
-                  className="btn bg-white px-3 text-base"
+                  className="btn px-3 text-base"
                   onClick={() => {
                     setEditId(m.id);
                     setEditText(m.name);
@@ -93,7 +93,7 @@ export default function MembersTab({
                 </button>
                 <button
                   type="button"
-                  className="btn bg-white px-3 text-base"
+                  className="btn px-3 text-base"
                   aria-label={`${m.name} 빼기`}
                   onClick={() => remove(m.id, m.name)}
                 >
@@ -117,7 +117,7 @@ export default function MembersTab({
             setMsg("");
           }}
         />
-        <button type="submit" className="btn shrink-0 bg-sky">
+        <button type="submit" className="btn shrink-0">
           추가
         </button>
       </form>

@@ -5,14 +5,13 @@ import { LIMITS, type Trip } from "@/lib/types";
 import ExpensesTab from "./ExpensesTab";
 import MembersTab from "./MembersTab";
 import SettleTab from "./SettleTab";
-import { tapeStyle } from "./ui";
 
 type Tab = "expenses" | "members" | "settle";
 
-const TABS: { id: Tab; label: string; color: string }[] = [
-  { id: "expenses", label: "🧾 지출", color: "var(--color-butter)" },
-  { id: "members", label: "👥 사람", color: "var(--color-sky)" },
-  { id: "settle", label: "💸 정산", color: "var(--color-mint)" },
+const TABS: { id: Tab; label: string }[] = [
+  { id: "expenses", label: "지출" },
+  { id: "members", label: "사람" },
+  { id: "settle", label: "정산" },
 ];
 
 export default function TripView({
@@ -42,7 +41,7 @@ export default function TripView({
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between gap-2">
-        <button type="button" className="btn bg-white px-3 text-lg" onClick={onBack}>
+        <button type="button" className="btn px-3" onClick={onBack}>
           ← 목록
         </button>
         <span className="text-xs text-ink-soft">
@@ -59,14 +58,14 @@ export default function TripView({
           }}
         >
           <input
-            className="field font-hand text-2xl"
+            className="field font-hand text-xl"
             value={nameText}
             maxLength={LIMITS.tripName}
             aria-label="여행 이름"
             autoFocus
             onChange={(e) => setNameText(e.target.value)}
           />
-          <button type="submit" className="btn shrink-0 bg-mint">
+          <button type="submit" className="btn shrink-0 bg-coral">
             저장
           </button>
         </form>
@@ -75,11 +74,10 @@ export default function TripView({
           <button
             type="button"
             className="tape max-w-full cursor-pointer truncate text-left text-3xl"
-            style={tapeStyle("var(--color-coral)")}
             title="눌러서 이름 바꾸기"
             onClick={() => setEditingName(true)}
           >
-            {trip.name} ✎
+            {trip.name} <span className="text-base text-ink-soft">✎</span>
           </button>
         </h1>
       )}
@@ -91,8 +89,7 @@ export default function TripView({
             type="button"
             role="tab"
             aria-selected={tab === t.id}
-            className={`btn px-1 text-lg ${tab === t.id ? "" : "bg-white opacity-70 shadow-none"}`}
-            style={tab === t.id ? { background: t.color } : undefined}
+            className={`btn px-1 ${tab === t.id ? "bg-ink text-paper" : "text-ink-soft shadow-none"}`}
             onClick={() => setTab(t.id)}
           >
             {t.label}

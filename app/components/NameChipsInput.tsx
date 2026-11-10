@@ -50,7 +50,7 @@ export default function NameChipsInput({
             <li key={n}>
               <button
                 type="button"
-                className="chip bg-butter"
+                className="chip border-ink bg-soft"
                 aria-label={`${n} 빼기`}
                 onClick={() => onChange(names.filter((x) => x !== n))}
               >
@@ -80,7 +80,7 @@ export default function NameChipsInput({
             }
           }}
         />
-        <button type="button" className="btn shrink-0 bg-sky" onClick={add}>
+        <button type="button" className="btn shrink-0" onClick={add}>
           추가
         </button>
       </div>

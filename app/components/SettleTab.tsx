@@ -5,7 +5,6 @@ import { convert, formatMoney, otherCurrency, parseRate } from "@/lib/money";
 import { settleTrip } from "@/lib/settle";
 import { buildShareText } from "@/lib/share-text";
 import { LIMITS, type Currency, type Trip } from "@/lib/types";
-import { tapeStyle } from "./ui";
 
 async function copyText(text: string): Promise<boolean> {
   try {
@@ -121,28 +120,28 @@ export default function SettleTab({
       </div>
 
       {!result.ok ? (
-        <div className="card bg-butter/40 text-center">
-          <p className="font-hand text-2xl font-bold">💱 환율이 필요해요</p>
+        <div className="card text-center">
+          <p className="font-hand text-2xl">환율이 필요해요</p>
           <p className="mt-1 text-sm">
             {otherCurrency(trip.settleCurrency) === "KRW" ? "원화" : "유로"}로 쓴 지출이 있어서, 위에 환율을 넣어야 계산할 수 있어요.
           </p>
         </div>
       ) : trip.expenses.length === 0 ? (
         <div className="card text-center">
-          <p className="font-hand text-2xl">아직 지출이 없어요 ✏️</p>
-          <p className="mt-1 text-sm text-ink-soft">🧾 지출 탭에서 쓴 돈을 적어 주세요.</p>
+          <p className="font-hand text-2xl">아직 지출이 없어요</p>
+          <p className="mt-1 text-sm text-ink-soft">지출 탭에서 쓴 돈을 적어 주세요.</p>
         </div>
       ) : (
         <>
-          <div className="card space-y-3 bg-mint/30">
+          <div className="card space-y-3">
             <div className="flex items-baseline justify-between">
-              <span className="tape" style={tapeStyle("var(--color-mint)")}>
+              <span className="tape">
                 이렇게 보내면 끝!
               </span>
               <span className="text-sm text-ink-soft">송금 {result.transfers.length}번</span>
             </div>
             {result.transfers.length === 0 ? (
-              <p className="py-2 text-center font-hand text-2xl">✨ 보낼 돈이 없어요. 이미 딱 맞아요!</p>
+              <p className="py-2 text-center font-hand text-2xl">보낼 돈이 없어요. 이미 딱 맞아요!</p>
             ) : (
               <ol className="space-y-2">
                 {result.transfers.map((t, i) => {
@@ -150,7 +149,7 @@ export default function SettleTab({
                   return (
                     <li
                       key={i}
-                      className="flex items-center gap-2 rounded-xl border-2 border-dashed border-ink/40 bg-white px-3 py-2"
+                      className="flex items-center gap-2 rounded-xl border border-line bg-paper px-3 py-2"
                     >
                       <span className="min-w-0 flex-1 text-lg">
                         <b className="break-all">{name(t.from)}</b>
@@ -173,8 +172,8 @@ export default function SettleTab({
             )}
           </div>
 
-          <button type="button" className="btn w-full bg-butter text-2xl" onClick={copy}>
-            {copied === "ok" ? "✅ 복사했어요! 카톡에 붙여 넣기" : "💬 카톡으로 복사"}
+          <button type="button" className="btn w-full bg-coral text-xl" onClick={copy}>
+            {copied === "ok" ? "✓ 복사했어요! 카톡에 붙여 넣기" : "카톡으로 복사"}
           </button>
           {copied === "fail" && (
             <p role="alert" className="text-center text-sm text-coral-dark">
@@ -200,7 +199,7 @@ export default function SettleTab({
           )}
 
           <div className="card">
-            <span className="tape text-xl" style={tapeStyle("var(--color-sky)")}>
+            <span className="tape">
               사람별 요약
             </span>
             <p className="mt-2 text-right text-sm text-ink-soft">
@@ -243,7 +242,7 @@ export default function SettleTab({
           if (window.confirm(`"${trip.name}" 여행을 통째로 지울까요? 되돌릴 수 없어요.`)) onDelete();
         }}
       >
-        🗑 이 여행 지우기
+        이 여행 지우기
       </button>
     </div>
   );

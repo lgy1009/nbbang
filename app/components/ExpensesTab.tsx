@@ -50,7 +50,7 @@ export default function ExpensesTab({
       ) : (
         <button
           type="button"
-          className="btn w-full bg-butter text-2xl"
+          className="btn w-full bg-coral text-xl"
           disabled={full}
           onClick={() => setEditing("new")}
         >
@@ -102,7 +102,7 @@ export default function ExpensesTab({
       <p className="text-center text-xs text-ink-soft">
         사람을 더하거나 이름을 바꾸려면{" "}
         <button type="button" className="cursor-pointer underline" onClick={onGoMembers}>
-          👥 사람
+          사람
         </button>{" "}
         탭으로 가요.
       </p>
@@ -168,7 +168,7 @@ function ExpenseForm({
   }
 
   return (
-    <form onSubmit={submit} className="card space-y-4 bg-paper" aria-label={initial ? "지출 고치기" : "지출 추가"}>
+    <form onSubmit={submit} className="card space-y-4" aria-label={initial ? "지출 고치기" : "지출 추가"}>
       <label className="block">
         <span className="mb-1 block text-sm font-bold">무엇에 썼나요?</span>
         <input
@@ -225,10 +225,10 @@ function ExpenseForm({
               key={m.id}
               type="button"
               aria-pressed={payerId === m.id}
-              className={`chip ${payerId === m.id ? "bg-coral font-bold" : "bg-white"}`}
+              className={`chip ${payerId === m.id ? "border-ink bg-coral" : ""}`}
               onClick={() => setPayerId(m.id)}
             >
-              {payerId === m.id ? "💳 " : ""}
+              {payerId === m.id ? "✓ " : ""}
               {m.name}
             </button>
           ))}
@@ -243,7 +243,7 @@ function ExpenseForm({
           <button
             type="button"
             aria-pressed={everyone}
-            className={`chip ${everyone ? "bg-mint font-bold" : "bg-white"}`}
+            className={`chip ${everyone ? "border-ink bg-soft" : ""}`}
             onClick={() => setSplitIds(everyone ? [] : allIds)}
           >
             전원
@@ -255,7 +255,7 @@ function ExpenseForm({
                 key={m.id}
                 type="button"
                 aria-pressed={on}
-                className={`chip ${on ? "bg-mint" : "bg-white text-ink-soft line-through"}`}
+                className={`chip ${on ? "border-ink bg-soft" : "text-ink-soft line-through"}`}
                 onClick={() => toggle(m.id)}
               >
                 {on ? "✓ " : ""}
